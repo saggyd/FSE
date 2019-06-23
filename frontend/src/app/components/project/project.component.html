@@ -1,0 +1,131 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-5">
+      <form class="form-horizontal" [formGroup]="createProjectForm" (ngSubmit)="onSubmitForm()">
+        <input type="hidden" id="_id" formControlName="_id">
+        <!-- Task Name -->
+        <div class="form-group row">
+          <label class="col-sm-4" for="projectName">Project </label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" [ngClass]="{'is-invalid': formErrors.projectName }" id="projectName" formControlName="projectName"
+              (blur)="logValidationErrors()">
+            <div class="invalid-feedback">
+              {{formErrors.projectName}}
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-4" for="projectName"></label>
+            <div class="col-sm-8">            
+              <label for="showhideDates"><input type="checkbox" formControlName="showhideDates" id="showhideDates" (change)="showhideDates" #showhideDates   /> Set Start and End Date</label>
+            </div>
+          </div>
+        <!-- Start Date -->
+        <div class="form-group row"  *ngIf="showhideDates.checked">
+          <label class="col-sm-4" for="startDate">Start Date</label>
+          <div  class="col-sm-8">
+            <input type="date" class="form-control" [ngClass]="{'is-invalid': formErrors.startDate }" id="startDate" formControlName="startDate"
+            [requiredIf]="showhideDates"
+              (blur)="logValidationErrors()">
+            <div class="invalid-feedback">
+              {{formErrors.startDate}}
+            </div>
+          </div>
+        </div>
+        <!-- End Date -->
+        <div class="form-group row"  *ngIf="showhideDates.checked">
+          <label class="col-sm-4" for="endDate">End Date</label>
+          <div class="col-sm-8">
+            <input type="date" class="form-control" [ngClass]="{'is-invalid': formErrors.endDate }" id="endDate" formControlName="endDate"
+            [requiredIf]="showhideDates"
+            (blur)="logValidationErrors()">
+            <div class="invalid-feedback">
+              {{formErrors.endDate}}
+            </div>
+          </div>
+        </div>       
+        <!-- Priority -->
+        <div class="form-group row">
+          <label class="col-sm-4" for="priority">Priority</label>
+          <div class="col-sm-8">
+            <input type="range" class="form-control" [ngClass]="{'is-invalid': formErrors.priority }" id="priority" formControlName="priority" min="0" max="30"
+              (blur)="logValidationErrors()"> {{createProjectForm.controls['priority'].value}}
+            <div class="invalid-feedback">
+              {{formErrors.priority}}
+            </div>
+          </div>
+        </div>
+        <!-- Parent Name -->
+        <div class="form-group row">
+            <label class="col-sm-4" for="taskName">Manager</label>
+            <div class="col-sm-8">
+              <div class="row">
+                  <input type="text" disabled class="form-control" [ngClass]="{'is-invalid': formErrors.managerId }" id="managerId" formControlName="managerId"
+                  (selectedUser)="showUserSelect($event)"
+                  (blur)="logValidationErrors()" class="col-sm-8"><!-- 
+                  <datalist id="usersData">
+                    <option  *ngFor="let list of listUser" value={{list._id}}></option>
+                  </datalist> --><button (click)="openModal()" type="button" class="btn btn-success">Search</button>
+              </div>
+              
+              <div class="invalid-feedback">
+                {{formErrors.managerId  }}
+              </div>
+            </div>
+
+        </div>
+        <!-- Submit -->
+        <blockquote class="blockquote">
+          <button type="submit" class="btn btn-primary">Add</button>
+          <button type="reset" class="btn btn-reset">Reset</button>
+          <footer *ngIf="invalidForm" class="blockquote-footer"><cite class="text-danger">{{invalidFormMessage}}</cite></footer>
+        </blockquote>
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+        <input type="text" class="form-control" [(ngModel)]="searchText" placeholder="search text goes here"/>
+    </div>
+    <div class="col-md-8 pull-right">
+        <button type="button" class="btn btn-light" (click)="sort('startDate')">Start Date</button>
+        <button type="button" class="btn btn-light" (click)="sort('endDate')">End Date</button>
+        <button type="button" class="btn btn-light" (click)="sort('priority')">Priority</button>
+        <button type="button" class="btn btn-light" (click)="sort('completed')">Completed</button>
+    </div>
+    <div class="col-md-12">
+      <hr>
+      <table class="table table-bordered table-sm">
+        <thead>
+          <tr class="table-primary">
+            <th>#</th>
+            <th>Project Name</th>
+            <th>Priority</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>No. of Tasks</th>
+            <th>Completed</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let list of listProject | filter: searchText |  orderBy: key : reverse; let i = index;">
+            <td>{{i+1}}</td>
+            <td>{{list.projectName}}</td>
+            <td>{{list.priority}}</td>
+            <td>{{list.startDate}}</td>
+            <td>{{list.endDate}}</td>
+            <td>{{list.tasks}}</td>
+            <td>{{list.completed}}</td>
+            <td>
+              <div class="btn-group btn-group-sm" role="group">
+                <button type="button" class="btn btn-ligth" (click)="editProject(list._id)">Edit</button>
+                <button type="button" class="btn btn-danger" (click)="deleteProject(list._id)">Suspend</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

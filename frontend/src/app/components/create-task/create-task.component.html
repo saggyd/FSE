@@ -1,0 +1,110 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <form [formGroup]="createTaskForm" (ngSubmit)="onSubmitForm()">
+        <input type="hidden" id="_id" formControlName="_id">
+        <div class="form-group row">
+          <label class="col-sm-4" for="projectId">Project</label>
+          <div class="col-sm-8">
+            <div class="row">
+              <select type="text" class="form-control" [ngClass]="{'is-invalid': formErrors.projectId }" id="projectId"
+                formControlName="projectId" (blur)="logValidationErrors()">
+                <option *ngFor="let list of listProject;" value="{{list._id}}">{{list.projectName}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="invalid-feedback">
+            {{formErrors.taskName}}
+          </div>
+        </div>
+        <!-- Task Name-->
+        <div class="form-group row">
+          <label class="col-sm-4" for="taskName">Task Name</label>
+          <div class="col-sm-8">
+            <div class="row">
+              <input type="text" class="form-control" [ngClass]="{'is-invalid': formErrors.taskName }" id="taskName"
+                formControlName="taskName" (blur)="logValidationErrors()">
+            </div>
+          </div>
+          <div class="invalid-feedback">
+            {{formErrors.taskName}}
+          </div>
+        </div>
+        <!-- Priority -->
+        <div class="form-group row">
+          <label class="col-sm-4" for="priority">Priority</label>
+          <div class="col-sm-8">
+            <div class="row">
+              <input type="range" class="form-control" [ngClass]="{'is-invalid': formErrors.priority }" id="priority"
+                formControlName="priority" (blur)="logValidationErrors()">
+              {{createTaskForm.controls['priority'].value}}
+            </div>
+          </div>
+          <div class="invalid-feedback">
+            {{formErrors.priority}}
+          </div>
+        </div>
+        <!-- Parent Name -->
+        <div class="form-group row">
+          <label class="col-sm-4" for="parentId">Parent Task</label>
+          <div class="col-sm-8">
+            <div class="row">
+              <select type="text" class="form-control" [ngClass]="{'is-invalid': formErrors.parentId }" id="parentId"
+                formControlName="parentId" (blur)="logValidationErrors()">
+                <option *ngFor="let list of parentLists;" value="{{list._id}}">{{list.parentName}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="invalid-feedback">
+            {{formErrors.parentId}}
+          </div>
+        </div>
+        <!-- Start Date -->
+        <div class="form-group row">
+          <label class="col-sm-4" for="startDate">Start Date</label>
+          <div class="col-sm-8">
+            <div class="row">
+              <input type="date" class="form-control" [ngClass]="{'is-invalid': formErrors.startDate }" id="startDate"
+                formControlName="startDate" (blur)="logValidationErrors()">
+            </div>
+          </div>
+          <div class="invalid-feedback">
+            {{formErrors.startDate}}
+          </div>
+        </div>
+        <!-- End Date -->
+        <div class="form-group row">
+          <label class="col-sm-4" for="endDate">End Date</label>
+          <div class="col-sm-8">
+            <div class="row">
+              <input type="date" class="form-control" [ngClass]="{'is-invalid': formErrors.endDate }" id="endDate"
+                formControlName="endDate" (blur)="logValidationErrors()"></div>
+          </div>
+          <div class="invalid-feedback">
+            {{formErrors.endDate}}
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4" for="userId">User</label>
+          <div class="col-sm-8">
+            <div class="row">
+              <select type="text" class="form-control" [ngClass]="{'is-invalid': formErrors.userId }" id="userId"
+                formControlName="userId" (blur)="logValidationErrors()">
+                <option *ngFor="let list of listUser;" value="{{list._id}}">{{list.firstName}}
+                  {{list.lastName}}</option>
+              </select>
+            </div>
+            <div class="invalid-feedback">
+              {{formErrors.managerId }}
+            </div>
+          </div>
+        </div>
+        <!-- Submit -->
+        <blockquote class="blockquote">
+          <button type="submit" class="btn btn-primary">Create</button>
+          <footer *ngIf="invalidForm" class="blockquote-footer"><cite class="text-danger">{{invalidFormMessage}}</cite></footer>
+        </blockquote>
+      </form>
+    </div>
+  </div>
+</div>

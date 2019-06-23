@@ -1,0 +1,87 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <form class="form-horizontal" [formGroup]="createUserForm" (ngSubmit)="onSubmitForm()">
+        <input type="hidden" id="_id" formControlName="_id">
+        <!-- Task Name -->
+        <div class="form-group row">
+          <label class="col-sm-4" for="taskName">First Name</label>
+          <div class="col-sm-8">            
+            <input type="text" class="form-control" [ngClass]="{'is-invalid': formErrors.firstName }" id="firstName" formControlName="firstName"
+              (blur)="logValidationErrors()">
+            <div class="invalid-feedback">
+              {{formErrors.firstName}}
+            </div>
+          </div>
+        </div>
+        <!-- Priority -->
+        <div class="form-group row">
+          <label class="col-sm-4" for="taskName">Last Name</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" [ngClass]="{'is-invalid': formErrors.lastName }" id="lastName" formControlName="lastName"
+              (blur)="logValidationErrors()">
+            <div class="invalid-feedback">
+              {{formErrors.lastName}}
+            </div>
+          </div>
+        </div>
+        <!-- Parent Name -->
+        <div class="form-group row">
+            <label class="col-sm-4" for="taskName">Employee Id</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" [ngClass]="{'is-invalid': formErrors.employeeId }" id="employeeId" formControlName="employeeId"
+                (blur)="logValidationErrors()">
+              <div class="invalid-feedback">
+                {{formErrors.employeeId}}
+              </div>
+            </div>
+
+        </div>
+        <!-- Submit -->
+        <blockquote class="blockquote">
+          <button type="submit" class="btn btn-primary">Add</button>
+          <button type="reset" class="btn btn-reset">Reset</button>
+          <footer *ngIf="invalidForm" class="blockquote-footer"><cite class="text-danger">{{invalidFormMessage}}</cite></footer>
+        </blockquote>
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+        <input type="text" class="form-control" [(ngModel)]="searchText" placeholder="search text goes here"/>
+    </div>
+    <div class="col-md-8 pull-right">
+        <button type="button" class="btn btn-light" (click)="sort('firstName')">First Name</button>
+        <button type="button" class="btn btn-light" (click)="sort('lastName')">Last Name</button>
+        <button type="button" class="btn btn-light" (click)="sort('employeeId')">Employee Id</button>
+    </div>
+    <div class="col-md-12">
+      <hr>
+      <table class="table table-bordered table-sm">
+        <thead>
+          <tr class="table-primary">
+            <th>#</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Employee Id</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let list of listUser | filter: searchText |  orderBy: key : reverse; let i = index;">
+            <td>{{i+1}}</td>
+            <td>{{list.firstName}}</td>
+            <td>{{list.lastName}}</td>
+            <td>{{list.employeeId}}</td>
+            <td>
+              <div class="btn-group btn-group-sm" role="group">
+                <button type="button" class="btn btn-ligth" (click)="editUser(list._id)">Edit</button>
+                <button type="button" class="btn btn-danger" (click)="deleteUser(list._id)">Delete</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -50,7 +50,8 @@
     <div class="col-md-4">
         <input type="text" class="form-control" [(ngModel)]="searchText" placeholder="search text goes here"/>
     </div>
-    <div class="col-md-8 pull-right">
+    <div class="col-md-8 pull-right sort-btn">
+        <label class="mr-4">Sort by:</label>
         <button type="button" class="btn btn-light" (click)="sort('firstName')">First Name</button>
         <button type="button" class="btn btn-light" (click)="sort('lastName')">Last Name</button>
         <button type="button" class="btn btn-light" (click)="sort('employeeId')">Employee Id</button>
@@ -75,8 +76,8 @@
             <td>{{list.employeeId}}</td>
             <td>
               <div class="btn-group btn-group-sm" role="group">
-                <button type="button" class="btn btn-ligth" (click)="editUser(list._id)">Edit</button>
-                <button type="button" class="btn btn-danger" (click)="deleteUser(list._id)">Delete</button>
+                <button type="button" class="btn btn-ligth ml-5 mr-3" (click)="editUser(list._id)">Edit</button>
+                <button type="button" class="btn btn-secondary" (click)="deleteUser(list._id)">Delete</button>
               </div>
             </td>
           </tr>

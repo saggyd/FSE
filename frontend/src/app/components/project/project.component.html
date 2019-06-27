@@ -65,7 +65,7 @@
                   (blur)="logValidationErrors()" class="col-sm-8"><!-- 
                   <datalist id="usersData">
                     <option  *ngFor="let list of listUser" value={{list._id}}></option>
-                  </datalist> --><button (click)="openModal()" type="button" class="btn btn-success">Search</button>
+                  </datalist> --><button (click)="openModal()" type="button" class="btn btn-secondary ml-4">Search</button>
               </div>
               
               <div class="invalid-feedback">
@@ -87,7 +87,8 @@
     <div class="col-md-4">
         <input type="text" class="form-control" [(ngModel)]="searchText" placeholder="search text goes here"/>
     </div>
-    <div class="col-md-8 pull-right">
+    <div class="col-md-8 pull-right sort-btn">
+        <label class="mr-3">Sort by:</label>
         <button type="button" class="btn btn-light" (click)="sort('startDate')">Start Date</button>
         <button type="button" class="btn btn-light" (click)="sort('endDate')">End Date</button>
         <button type="button" class="btn btn-light" (click)="sort('priority')">Priority</button>
@@ -119,8 +120,8 @@
             <td>{{list.completed}}</td>
             <td>
               <div class="btn-group btn-group-sm" role="group">
-                <button type="button" class="btn btn-ligth" (click)="editProject(list._id)">Edit</button>
-                <button type="button" class="btn btn-danger" (click)="deleteProject(list._id)">Suspend</button>
+                <button type="button" class="btn btn-light mr-4 ml-3" (click)="editProject(list._id)">Edit</button>
+                <button type="button" class="btn btn-secondary" (click)="deleteProject(list._id)">Suspend</button>
               </div>
             </td>
           </tr>

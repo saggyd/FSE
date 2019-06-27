@@ -1,63 +1,65 @@
-<div class="row">
-  <div class="col-md-12">
+<div class="container">
     <div class="row">
-      <div class="col-md-5">
-        <div class="row">
-          <label for="projectModel" class="col-md-3">Project</label> 
-          <input type="text" class="form-control col-md-9" [(ngModel)]="searchText" placeholder="search text goes here"/>
-        </div>
-      </div>
-      <div class="col-md-7">
-        <div class="row pull-right">
-          <div class="col-md-3">
-            <button  class="btn btn-light" (click)="sort('startDate')">Start Date</button>
-          </div>
-          <div class="col-md-3">
-            <button  class="btn btn-light" (click)="sort('endDate')">End Date</button>
-          </div>
-          
-          <div class="col-md-3">
-            <button  class="btn btn-light" (click)="sort('priority')">Priority</button>
-          </div>
-          <div class="col-md-3">
-            <button  class="btn btn-light">Completed</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-12">
-    <hr>
-    <table class="table table-bordered table-sm">
-      <thead>
-        <tr class="table-primary">
-          <th>#</th>
-          <th>Task Name</th>
-          <th>Parent Name</th>
-          <th>Priority</th>
-          <th>Start Date</th>
-          <th>End Date</th>
-          <th>Options</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let list of listTask |  orderBy: key : reverse; let i = index;">
-          <td>{{i+1}}</td>
-          <td>{{list.taskName}}</td>
-          <td>{{list.parentId.parentName}}</td>
-          <td>{{list.priority}}</td>
-          <td>{{list.startDate}}</td>
-          <td>{{list.endDate}}</td>
-          <td>
-            <div class="btn-group btn-group-sm" role="group">
-              <button type="button" class="btn btn-ligth" (click)="editTask(list._id)">Edit</button>
-              <button type="button" class="btn btn-danger" (click)="deleteTask(list._id)">Delete</button>
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-5">
+              <div class="row">
+                <label for="projectModel" class="col-md-3">Project</label> 
+                <input type="text" class="form-control col-md-9" [(ngModel)]="searchText" placeholder="search text goes here"/>
+              </div>
             </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+            <div class="col-md-7 sort-btn">
+              <div class="row pull-right">
+                <div class="col-md-3">
+                  <button  class="btn btn-light" (click)="sort('startDate')">Start Date</button>
+                </div>
+                <div class="col-md-3">
+                  <button  class="btn btn-light" (click)="sort('endDate')">End Date</button>
+                </div>
+                
+                <div class="col-md-3">
+                  <button  class="btn btn-light" (click)="sort('priority')">Priority</button>
+                </div>
+                <div class="col-md-3">
+                  <button  class="btn btn-light">Completed</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <hr>
+          <table class="table table-bordered table-sm">
+            <thead>
+              <tr class="table-primary">
+                <th>#</th>
+                <th>Task Name</th>
+                <th>Parent Name</th>
+                <th>Priority</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Options</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let list of listTask |  orderBy: key : reverse; let i = index;">
+                <td>{{i+1}}</td>
+                <td>{{list.taskName}}</td>
+                <td>{{list.parentId.parentName}}</td>
+                <td>{{list.priority}}</td>
+                <td>{{list.startDate}}</td>
+                <td>{{list.endDate}}</td>
+                <td>
+                  <div class="btn-group btn-group-sm" role="group">
+                    <button type="button" class="btn btn-ligth ml-4 mr-3" (click)="editTask(list._id)">Edit</button>
+                    <button type="button" class="btn btn-secondary" (click)="deleteTask(list._id)">Delete</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
 </div>

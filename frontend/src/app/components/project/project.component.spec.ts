@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
@@ -9,6 +9,8 @@ import { Ng2OrderModule } from 'ng2-order-pipe';
 import { RequiredIfDirective } from '../../directives/required-if.directive';
 import { ProjectComponent } from './project.component';
 import { UserFilterPipe } from '../../filters/userfilter.pipe';
+import { ProjectService } from '../../services/project.service';
+import { UserService } from '../../services/user.service';
 
 
 describe('ProjectComponent', () => {
@@ -34,5 +36,21 @@ describe('ProjectComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('retrieves all Project information', inject( [ProjectService], ( ProjectService ) => {
+    ProjectService.getProject().subscribe(result => {
+        expect(result.data.length).toBeGreaterThan(0)
+      });
+  }));
+
+  it('retrieves all user information in Project', inject( [UserService], ( UserService ) => {
+    UserService.getUser().subscribe(result => {
+        expect(result.data.length).toBeGreaterThan(0)
+      });
+  }));
+
+  it('create project form invalid when empty', () => {
+    expect(component.createProjectForm.valid).toBeFalsy();
   });
 });
